@@ -1,12 +1,15 @@
---!strict
+local config = require("./config")
 
 type CallableTable<Fn, T> = typeof(setmetatable(({} :: any) :: T, {} :: { __call: Fn }))
+
+export type NeonCase = config.Case
+export type NeonAsync = config.Async
 
 export type NeonConfiguration = {
 	clientOutput: (path: string) -> NeonConfiguration,
 	serverOutput: (path: string) -> NeonConfiguration,
 	typescript: (boolean) -> NeonConfiguration,
-	case: ("camel" | "pascal" | "snake") -> NeonConfiguration,
+	case: (NeonCase) -> NeonConfiguration,
 	async: (("yielding") -> NeonConfiguration) & (("promise" | "future", libPath: string) -> NeonConfiguration),
 }
 
@@ -53,6 +56,8 @@ export type Neon = {
 	},
 }
 
-local Neon: Neon = table.freeze({}) :: any
+local Neon: Neon = table.freeze({
+	config = config,
+}) :: any
 
 return Neon
