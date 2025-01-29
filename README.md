@@ -6,7 +6,7 @@ and Zap.
 ```Luau
 local Neon = require("./lune_packages/neon")
 
-Neon.compile(
+Neon.generate(
 	Neon.config()
 		.clientOutput("src/client/network.luau")
 		.serverOutput("src/server/network.luau")
