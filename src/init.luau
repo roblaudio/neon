@@ -6,11 +6,27 @@ export type NeonCase = config.Case
 export type NeonAsync = config.Async
 
 export type NeonConfiguration = {
+	--- The output client file relative to the current working directory
 	clientOutput: (path: string) -> NeonConfiguration,
+	--- The output server file relative to the current working directory
 	serverOutput: (path: string) -> NeonConfiguration,
+	--- Toggles generating companion `d.ts` TypeScript definitions
 	typescript: (boolean) -> NeonConfiguration,
+	--- Casing of the compiled API
 	case: (NeonCase) -> NeonConfiguration,
+	--- Configures how functions yield. If not using "yielding", provide a
+	--- require statement to the async library. If using roblox-ts's Promise,
+	--- point to it's RuntimeLib.
+	---
+	--- ```Luau
+	--- Neon.config().async("promise", "require(game:GetService('ReplicatedStorage').rbxts_include.RuntimeLib).Promise")
+	--- ```
 	async: (("yielding") -> NeonConfiguration) & (("promise" | "future", libPath: string) -> NeonConfiguration),
+	--- Toggles checking types at runtime. Useful for development, but has a
+	--- performance cost. Consider turning off during production.
+	checkTypes: (boolean) -> NeonConfiguration,
+	--- The name of the folder made in ReplicatedStorage that Neon will use.
+	remoteFolder: (remoteFolderName: string) -> NeonConfiguration,
 }
 
 export type NeonType = { __neonType: never }

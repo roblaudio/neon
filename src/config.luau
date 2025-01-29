@@ -8,6 +8,8 @@ export type Configuration = {
 	case: Case,
 	async: Async,
 	asyncLibPath: string?,
+	checkTypes: boolean,
+	remoteFolderName: string,
 }
 
 export type ConfigurationBuilder = {
@@ -18,6 +20,8 @@ export type ConfigurationBuilder = {
 	typescript: (boolean) -> ConfigurationBuilder,
 	case: (Case) -> ConfigurationBuilder,
 	async: (("yielding") -> ConfigurationBuilder) & (("promise" | "future", libPath: string) -> ConfigurationBuilder),
+	checkTypes: (boolean) -> ConfigurationBuilder,
+	remoteFolder: (remoteFolderName: string) -> ConfigurationBuilder,
 }
 
 -- FIXME: Luau is broken
@@ -25,6 +29,8 @@ local DEFAULT_CONFIGURATION: Configuration = table.freeze({
 	typescript = false,
 	case = "camel",
 	async = "yielding",
+	checkTypes = false,
+	remoteFolderName = "Neon",
 } :: { [any]: any })
 
 local function config(): ConfigurationBuilder
@@ -63,6 +69,16 @@ local function config(): ConfigurationBuilder
 			config.asyncLibPath = nil
 		end
 
+		return builder
+	end
+
+	function builder.checkTypes(checkTypes: boolean)
+		config.checkTypes = checkTypes
+		return builder
+	end
+
+	function builder.remoteFolder(remoteFolderName: string)
+		config.remoteFolderName = remoteFolderName
 		return builder
 	end
 
