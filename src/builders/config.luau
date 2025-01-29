@@ -1,41 +1,31 @@
-export type Case = "camel" | "pascal" | "snake"
-export type Async = "yielding" | "promise" | "future"
-
-export type Configuration = {
-	clientOutput: string?,
-	serverOutput: string?,
-	typescript: boolean,
-	case: Case,
-	async: Async,
-	asyncLibPath: string?,
-	checkTypes: boolean,
-	remoteFolderName: string,
-}
+local types = require("../types")
 
 export type ConfigurationBuilder = {
-	config: Configuration,
+	_config: types.Configuration,
 
 	clientOutput: (path: string) -> ConfigurationBuilder,
 	serverOutput: (path: string) -> ConfigurationBuilder,
 	typescript: (boolean) -> ConfigurationBuilder,
-	case: (Case) -> ConfigurationBuilder,
+	case: (types.Case) -> ConfigurationBuilder,
 	async: (("yielding") -> ConfigurationBuilder) & (("promise" | "future", libPath: string) -> ConfigurationBuilder),
 	checkTypes: (boolean) -> ConfigurationBuilder,
 	remoteFolder: (remoteFolderName: string) -> ConfigurationBuilder,
+	fmt: (boolean) -> ConfigurationBuilder,
 }
 
 -- FIXME: Luau is broken
-local DEFAULT_CONFIGURATION: Configuration = table.freeze({
+local DEFAULT_CONFIGURATION: types.Configuration = table.freeze({
 	typescript = false,
 	case = "camel",
 	async = "yielding",
 	checkTypes = false,
 	remoteFolderName = "Neon",
+	fmt = false,
 } :: { [any]: any })
 
 local function config(): ConfigurationBuilder
 	local config = table.clone(DEFAULT_CONFIGURATION)
-	local builder = { config = config } :: ConfigurationBuilder
+	local builder = { _config = config } :: ConfigurationBuilder
 
 	function builder.clientOutput(path: string)
 		config.clientOutput = path
@@ -52,12 +42,12 @@ local function config(): ConfigurationBuilder
 		return builder
 	end
 
-	function builder.case(case: Case)
+	function builder.case(case: types.Case)
 		config.case = case
 		return builder
 	end
 
-	function builder.async(async: Async, libPath: string?)
+	function builder.async(async: types.Async, libPath: string?)
 		config.async = async
 
 		if async ~= "yielding" then
@@ -79,6 +69,11 @@ local function config(): ConfigurationBuilder
 
 	function builder.remoteFolder(remoteFolderName: string)
 		config.remoteFolderName = remoteFolderName
+		return builder
+	end
+
+	function builder.fmt(fmt: boolean)
+		config.fmt = fmt
 		return builder
 	end
 

@@ -4,8 +4,7 @@ Type-safe Luau API for writing and compiling buffer network IDLs based on Blink
 and Zap.
 
 ```Luau
-local Neon = require("lune_packages/neon")
-local types = Neon.types
+local Neon = require("./lune_packages/neon")
 
 Neon.compile(
 	Neon.config()
@@ -14,7 +13,7 @@ Neon.compile(
 		.typescript(true)
 		.case("camel")
 		.async("promise" :: "promise", "require(game:GetService('ReplicatedStorage').rbxts_include.RuntimeLib)"),
-	Neon.fromClient("CanMigrate").returns(types.bool)
+	Neon.fromClient("CanMigrate").returns(Neon.dataTypes.bool)
 )
 ```
 

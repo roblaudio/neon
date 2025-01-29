@@ -2,5 +2,9 @@
     "languageMode": "strict",
     "lint": {
         "*": true
+    },
+    "aliases": {
+        "luau_packages": "luau_packages",
+        "lune_packages": "lune_packages"
     }
 }
