@@ -10,3 +10,6 @@ environment = "lune"
 
 [indices]
 default = "https://github.com/pesde-pkg/index"
+
+[dependencies]
+pathfs = { name = "jiwonz/pathfs", version = "^0.3.1" }

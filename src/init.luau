@@ -1,4 +1,5 @@
 local config = require("./config")
+local compile = require("./compile")
 
 type CallableTable<Fn, T> = typeof(setmetatable(({} :: any) :: T, {} :: { __call: Fn }))
 
@@ -74,6 +75,7 @@ export type Neon = {
 
 local Neon: Neon = table.freeze({
 	config = config,
+	compile = compile,
 }) :: any
 
 return Neon
