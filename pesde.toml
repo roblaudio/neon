@@ -1,0 +1,12 @@
+name = "roblaudio/neon"
+version = "0.1.0"
+description = "Luau API to write buffer networking IDLs"
+authors = ["Fire <znotfireman@gmail.com>"]
+repository = "https://github.com/roblaudio/neon"
+license = "MIT"
+
+[target]
+environment = "lune"
+
+[indices]
+default = "https://github.com/pesde-pkg/index"
