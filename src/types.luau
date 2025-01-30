@@ -13,6 +13,7 @@ export type Configuration = {
 	checkTypes: boolean,
 	remoteFolderName: string,
 	fmt: boolean,
+	document: boolean,
 }
 
 export type RemoteFrom = "client" | "server"
@@ -32,6 +33,7 @@ export type Output = {
 	pushHeader: (scope: string) -> Output,
 	push: (...string) -> Output,
 	pushLine: (line: string) -> Output,
+	pushNewLine: () -> Output,
 
 	contents: () -> string,
 	writeFile: (path: pathfs.Path) -> (),

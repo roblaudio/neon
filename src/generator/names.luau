@@ -31,6 +31,8 @@ local function fromComponents(...: string): NameCasing
 	} :: any
 end
 
+---
+
 local NAMES = table.freeze {
 	fire = fromComponents("fire"),
 	fireAll = fromComponents("fire", "all"),
@@ -42,7 +44,9 @@ local NAMES = table.freeze {
 	stepReplication = fromComponents("step", "replication"),
 }
 
-local names = { NAMES = NAMES }
+---
+
+local names = { NAMES = NAMES, fromComponents = fromComponents }
 
 function names.cased(case: Case, name: keyof<typeof(NAMES)>)
 	return (NAMES :: { [any]: any })[name][case]

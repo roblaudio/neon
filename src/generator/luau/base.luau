@@ -1,0 +1,100 @@
+return [[
+    local ReplicatedStorage = game:GetService("ReplicatedStorage")
+    local RunService = game:GetService("RunService")
+
+    local outgoingBuff: buffer
+    local outgoingUsed: number
+    local outgoingSize: number
+    local outgoingInst: { Instance }
+    local outgoingApos: number
+
+    local incomingBuffer: buffer
+    local incomingRead: number
+    local incomingInst: { Instance }
+    local incomingIpos: number
+
+    -- thanks to https://dom.rojo.space/binary.html#cframe
+    local CFrameSpecialCases = {
+    	CFrame.Angles(0, 0, 0),
+    	CFrame.Angles(math.rad(90), 0, 0),
+    	CFrame.Angles(0, math.rad(180), math.rad(180)),
+    	CFrame.Angles(math.rad(-90), 0, 0),
+    	CFrame.Angles(0, math.rad(180), math.rad(90)),
+    	CFrame.Angles(0, math.rad(90), math.rad(90)),
+    	CFrame.Angles(0, 0, math.rad(90)),
+    	CFrame.Angles(0, math.rad(-90), math.rad(90)),
+    	CFrame.Angles(math.rad(-90), math.rad(-90), 0),
+    	CFrame.Angles(0, math.rad(-90), 0),
+    	CFrame.Angles(math.rad(90), math.rad(-90), 0),
+    	CFrame.Angles(0, math.rad(90), math.rad(180)),
+    	CFrame.Angles(0, math.rad(-90), math.rad(180)),
+    	CFrame.Angles(0, math.rad(180), math.rad(0)),
+    	CFrame.Angles(math.rad(-90), math.rad(-180), math.rad(0)),
+    	CFrame.Angles(0, math.rad(0), math.rad(180)),
+    	CFrame.Angles(math.rad(90), math.rad(180), math.rad(0)),
+    	CFrame.Angles(0, math.rad(0), math.rad(-90)),
+    	CFrame.Angles(0, math.rad(-90), math.rad(-90)),
+    	CFrame.Angles(0, math.rad(-180), math.rad(-90)),
+    	CFrame.Angles(0, math.rad(90), math.rad(-90)),
+    	CFrame.Angles(math.rad(90), math.rad(90), 0),
+    	CFrame.Angles(0, math.rad(90), 0),
+    	CFrame.Angles(math.rad(-90), math.rad(90), 0),
+    }
+
+    local function alloc(len: number)
+    	if outgoingUsed + len > outgoingSize then
+    		while outgoingUsed + len > outgoingSize do
+    			outgoingSize = outgoingSize * 2
+    		end
+
+    		local newBuff = buffer.create(outgoingSize)
+    		buffer.copy(newBuff, 0, outgoingBuff, 0, outgoingUsed)
+
+    		outgoingBuff = newBuff
+    	end
+
+    	outgoingApos = outgoingUsed
+    	outgoingUsed = outgoingUsed + len
+
+    	return outgoingApos
+    end
+
+    local function read(len: number)
+    	local pos = incomingRead
+    	incomingRead = incomingRead + len
+
+    	return pos
+    end
+
+    local function save()
+    	return {
+    		buff = outgoingBuff,
+    		used = outgoingUsed,
+    		size = outgoingSize,
+    		inst = outgoingInst,
+    	}
+    end
+
+    local function load(data: {
+    	buff: buffer,
+    	used: number,
+    	size: number,
+    	inst: { Instance },
+    })
+    	outgoingBuff = data.buff
+    	outgoingUsed = data.used
+    	outgoingSize = data.size
+    	outgoingInst = data.inst
+    end
+
+    local function loadEmpty()
+    	outgoingBuff = buffer.create(64)
+    	outgoingUsed = 0
+    	outgoingSize = 64
+    	outgoingInst = {}
+    end
+
+    loadEmpty()
+
+    local types = {}
+]]

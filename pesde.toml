@@ -4,6 +4,7 @@ description = "Luau API to write buffer networking IDLs"
 authors = ["Fire <znotfireman@gmail.com>"]
 repository = "https://github.com/roblaudio/neon"
 license = "MIT"
+includes = ["src/**/*.luau", "pesde.toml", "LICENSE", "README.md", ".luaurc"]
 
 [target]
 environment = "lune"
@@ -16,6 +17,6 @@ pathfs = { name = "jiwonz/pathfs", version = "0.3.1" }
 dirs = { name = "jiwonz/dirs", version = "^0.1.1" }
 semver = { name = "0x5eal/semver", version = "0.1.1", target = "luau" }
 
-# here because the bitches at semver/toolchainlib really felt like using rust
-result = { name = "lukadev_0/result", version = "^1.2.0" }
-option = { name = "lukadev_0/option", version = "^1.2.0" }
+# here because some packaged uses it
+result = { name = "lukadev_0/result", version = "^1.2.0", target = "luau" }
+option = { name = "lukadev_0/option", version = "^1.2.0", target = "luau" }

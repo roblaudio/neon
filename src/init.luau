@@ -2,11 +2,12 @@ local config = require("./builders/config")
 local constants = require("./constants")
 local generator = require("./generator")
 local remotes = require("./builders/remotes")
+local types = require("./types")
 
 type CallableTable<Fn, T> = typeof(setmetatable(({} :: any) :: T, {} :: { __call: Fn }))
 
-export type NeonCase = config.Case
-export type NeonAsync = config.Async
+export type NeonCase = types.Case
+export type NeonAsync = types.Async
 
 export type NeonConfiguration = {
 	--- The output client file relative to the current working directory
@@ -32,6 +33,8 @@ export type NeonConfiguration = {
 	remoteFolder: (remoteFolderName: string) -> NeonConfiguration,
 	--- Toggles formatting of the generated code using Stylua
 	fmt: (boolean) -> NeonConfiguration,
+	--- Toggles documentation comments for the generated API
+	document: (boolean) -> NeonConfiguration,
 }
 
 export type NeonType = { __neonType: never }

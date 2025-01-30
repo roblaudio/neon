@@ -157,26 +157,9 @@ stylua = [{ name = "pesde/stylua", version = "^2.0.2", index = "https://github.c
 environment = "lune"
 lib = "src/lib/init.luau"
 
-[graph."lukadev_0/option"."1.2.0 lune"]
-direct = ["option", { name = "lukadev_0/option", version = "^1.2.0" }, "standard"]
-resolved_ty = "standard"
-
-[graph."lukadev_0/option"."1.2.0 lune".target]
-environment = "lune"
-lib = "lib/init.luau"
-
-[graph."lukadev_0/option"."1.2.0 lune".pkg_ref]
-ref_ty = "pesde"
-name = "lukadev_0/option"
-version = "1.2.0"
-index_url = "https://github.com/pesde-pkg/index"
-
-[graph."lukadev_0/option"."1.2.0 lune".pkg_ref.target]
-environment = "lune"
-lib = "lib/init.luau"
-
 [graph."lukadev_0/option"."1.2.0 luau"]
-resolved_ty = "peer"
+direct = ["option", { name = "lukadev_0/option", version = "^1.2.0", target = "luau" }, "standard"]
+resolved_ty = "standard"
 is_peer = true
 
 [graph."lukadev_0/option"."1.2.0 luau".target]
@@ -193,26 +176,9 @@ index_url = "https://github.com/daimond113/pesde-index"
 environment = "luau"
 lib = "lib/init.luau"
 
-[graph."lukadev_0/result"."1.2.0 lune"]
-direct = ["result", { name = "lukadev_0/result", version = "^1.2.0" }, "standard"]
-resolved_ty = "standard"
-
-[graph."lukadev_0/result"."1.2.0 lune".target]
-environment = "lune"
-lib = "lib/init.luau"
-
-[graph."lukadev_0/result"."1.2.0 lune".pkg_ref]
-ref_ty = "pesde"
-name = "lukadev_0/result"
-version = "1.2.0"
-index_url = "https://github.com/pesde-pkg/index"
-
-[graph."lukadev_0/result"."1.2.0 lune".pkg_ref.target]
-environment = "lune"
-lib = "lib/init.luau"
-
 [graph."lukadev_0/result"."1.2.0 luau"]
-resolved_ty = "peer"
+direct = ["result", { name = "lukadev_0/result", version = "^1.2.0", target = "luau" }, "standard"]
+resolved_ty = "standard"
 is_peer = true
 
 [graph."lukadev_0/result"."1.2.0 luau".target]

@@ -11,6 +11,7 @@ export type ConfigurationBuilder = {
 	checkTypes: (boolean) -> ConfigurationBuilder,
 	remoteFolder: (remoteFolderName: string) -> ConfigurationBuilder,
 	fmt: (boolean) -> ConfigurationBuilder,
+	document: (boolean) -> ConfigurationBuilder,
 }
 
 -- FIXME: Luau is broken
@@ -20,7 +21,9 @@ local DEFAULT_CONFIGURATION: types.Configuration = table.freeze({
 	async = "yielding",
 	checkTypes = false,
 	remoteFolderName = "Neon",
-	fmt = false,
+	-- TODO: make this based on if the user has stylua enabled
+	fmt = true,
+	document = true,
 } :: { [any]: any })
 
 local function config(): ConfigurationBuilder
@@ -74,6 +77,11 @@ local function config(): ConfigurationBuilder
 
 	function builder.fmt(fmt: boolean)
 		config.fmt = fmt
+		return builder
+	end
+
+	function builder.document(document: boolean)
+		config.document = document
 		return builder
 	end
 
