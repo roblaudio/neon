@@ -7,7 +7,7 @@ local function generateServerTypeScript(config: types.Configuration, generatable
 	output.pushHeader("Server")
 
 	output.pushLine("")
-	output.pushLine(`export declare const {names.cased(config.case, "stepReplication")}: () => void`)
+	output.pushLine(`export declare const {names.cased(config.case, "sendEvents")}: () => void`)
 	output.pushLine("")
 
 	for _, gen in generatable do

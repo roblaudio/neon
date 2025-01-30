@@ -41,7 +41,7 @@ local NAMES = table.freeze {
 	on = fromComponents("on"),
 	invoke = fromComponents("invoke"),
 	setCallback = fromComponents("set", "callback"),
-	stepReplication = fromComponents("step", "replication"),
+	sendEvents = fromComponents("send", "events"),
 }
 
 ---

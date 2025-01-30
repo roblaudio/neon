@@ -16,7 +16,7 @@
                 },
                 "ext": {
                     "roblox": {
-                        "enabled": false,
+                        "enabled": true,
                         "security_level": "plugin"
                     },
                     "fflags": {
